@@ -17,13 +17,16 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
+//            if let scene = SKScene(fileNamed: "GameScene") {
+//                // Set the scale mode to scale to fit the window
+//                scene.scaleMode = .aspectFill
+//                
+//                // Present the scene
+//                view.presentScene(scene)
+//            }
+            let scene = GameScene(size: self.view.bounds.size)
+            scene.scaleMode = .aspectFill
+            view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
             
@@ -32,22 +35,27 @@ class GameViewController: UIViewController {
         }
     }
     
-    // 自动旋转
+    /*
+     是否允许自动旋转
+    */
     override var shouldAutorotate: Bool {
         return true
     }
     
+    /*
+     支持自动旋转的方向,总共七种
+    */
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscape
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .landscape
+        } else {
+            return .all
+        }
     }
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        if UIDevice.current.userInterfaceIdiom == .phone {
-//            return .allButUpsideDown
-//        } else {
-//            return .all
-//        }
-//    }
 
+    /*
+     状态栏是否隐藏
+    */
     override var prefersStatusBarHidden: Bool {
         return true
     }
